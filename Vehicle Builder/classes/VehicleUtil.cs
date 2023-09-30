@@ -8,44 +8,43 @@ internal static class VehicleUtil
 {
     internal static void CreateVehiclePrompt()
     {
-        var message = "Would you like to create a new car, truck, or motorcycle: \n";
+        var message = "Would you like to create a new car, truck, or motorcycle:\n";
         var possibleTypes = Enum.GetValues(typeof(VehicleTypes));
         for (var i = 0; i < possibleTypes.Length; i++)
         {
             message += $"{i + 1} -> {possibleTypes.GetValue(i)}\n";
         }
-        
+
+        Vehicle? vehicle;
         while (true)
         {
             WriteLine($"{message}4 -> Cancel\n");
-            switch (ReadLine())
+            var input = ReadLine();
+            if (input is "cancel" or "exit" or "4")
             {
-                case "car":
-                case "1":
-                    CreateVehicle(VehicleTypes.Car);
-                    break;
-                case "truck":
-                case "2":
-                    CreateVehicle(VehicleTypes.Truck);
-                    break;
-                case "motorcycle":
-                case "3":
-                    CreateVehicle(VehicleTypes.Motorcycle);
-                    break;
-                case "cancel":
-                case "exit":
-                case "4":
-                    Clear();
-                    return;
-                default:
-                    WriteLine("Invalid input! Please input valid numbers!");
-                    ReadKey();
-                    Clear();
-                    continue;
+                Clear();
+                return;
             }
-
-            break;
+            VehicleTypes? type = input switch
+            {
+                "car" or "1" => VehicleTypes.Car,
+                "truck" or "2" => VehicleTypes.Truck,
+                "motorcycle" or "3" => VehicleTypes.Motorcycle,
+                _ => null
+            };
+            if (type is null)
+            {
+                WriteLine("Invalid input! Please input valid numbers!");
+                ReadKey();
+                Clear();
+            }
+            else
+            {
+                vehicle = Vehicle.Create((VehicleTypes)type);
+                break;
+            }
         }
+        vehicle.AskToSave();
     }
 
     private static void CreateVehicle(VehicleTypes vehicleType)
