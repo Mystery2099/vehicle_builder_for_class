@@ -97,12 +97,12 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
     public static Vehicle Create(VehicleTypes vehicleType)
     {
         Title = $"{vehicleType} Builder";
-        var make = VehicleUtil.GetStringInput("make");
-        var model = VehicleUtil.GetStringInput("model");
-        var year = VehicleUtil.GetShortInput("year");
-        var color = VehicleUtil.GetStringInput("color");
-        var price = VehicleUtil.GetDoubleInput("price");
-        var topSpeed = VehicleUtil.GetDoubleInput("maximum speed");
+        var make = InputHelper.GetStringInput("make");
+        var model = InputHelper.GetStringInput("model");
+        var year = InputHelper.GetShortInput("year");
+        var color = InputHelper.GetStringInput("color");
+        var price = InputHelper.GetDoubleInput("price");
+        var topSpeed = InputHelper.GetDoubleInput("maximum speed");
         return vehicleType switch
         {
             VehicleTypes.Car => new Car(make,
@@ -111,8 +111,8 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
                 color,
                 price,
                 topSpeed, 
-                VehicleUtil.GetByteInput("number of doors"),
-                VehicleUtil.GetStringInput("fuel type")
+                InputHelper.GetByteInput("number of doors"),
+                InputHelper.GetStringInput("fuel type")
             ),
             VehicleTypes.Truck => new Truck(make,
                 model,
@@ -120,9 +120,9 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
                 color,
                 price,
                 topSpeed,
-                VehicleUtil.GetByteInput("number of wheels"),
-                VehicleUtil.GetDoubleInput("payload displacement"),
-                VehicleUtil.GetStringInput("type of transmission")
+                InputHelper.GetByteInput("number of wheels"),
+                InputHelper.GetDoubleInput("payload displacement"),
+                InputHelper.GetStringInput("type of transmission")
             ),
             VehicleTypes.Motorcycle => new Motorcycle(make,
                 model,
@@ -130,8 +130,8 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
                 color,
                 price,
                 topSpeed,
-                VehicleUtil.GetUIntInput("engine displacement"),
-                VehicleUtil.GetStringInput("type of bike")
+                InputHelper.GetUIntInput("engine displacement"),
+                InputHelper.GetStringInput("type of bike")
             ),
             _ => throw new ArgumentOutOfRangeException(nameof(vehicleType), vehicleType, null)
         };

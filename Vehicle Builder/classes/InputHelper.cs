@@ -4,7 +4,7 @@ using static System.Console;
 //File Scoped namespace therefore doesn't need curly brackets
 namespace Vehicle_Builder.classes;
 
-internal static class VehicleUtil
+internal static class InputHelper
 {
     internal static void CreateVehiclePrompt()
     {
