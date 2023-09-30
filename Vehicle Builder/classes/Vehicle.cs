@@ -94,6 +94,49 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
         File.WriteAllText(fileName, fileContents);
     }
 
+    public static Vehicle Create(VehicleTypes vehicleType)
+    {
+        Title = $"{vehicleType} Builder";
+        var make = VehicleUtil.GetStringInput("make");
+        var model = VehicleUtil.GetStringInput("model");
+        var year = VehicleUtil.GetShortInput("year");
+        var color = VehicleUtil.GetStringInput("color");
+        var price = VehicleUtil.GetDoubleInput("price");
+        var topSpeed = VehicleUtil.GetDoubleInput("maximum speed");
+        return vehicleType switch
+        {
+            VehicleTypes.Car => new Car(make,
+                model,
+                year,
+                color,
+                price,
+                topSpeed, 
+                VehicleUtil.GetByteInput("number of doors"),
+                VehicleUtil.GetStringInput("fuel type")
+            ),
+            VehicleTypes.Truck => new Truck(make,
+                model,
+                year,
+                color,
+                price,
+                topSpeed,
+                VehicleUtil.GetByteInput("number of wheels"),
+                VehicleUtil.GetDoubleInput("payload displacement"),
+                VehicleUtil.GetStringInput("type of transmission")
+            ),
+            VehicleTypes.Motorcycle => new Motorcycle(make,
+                model,
+                year,
+                color,
+                price,
+                topSpeed,
+                VehicleUtil.GetUIntInput("engine displacement"),
+                VehicleUtil.GetStringInput("type of bike")
+            ),
+            _ => throw new ArgumentOutOfRangeException(nameof(vehicleType), vehicleType, null)
+        };
+    }
+
     // Override ToString to return vehicle details
     public override string ToString() => Details;
 
