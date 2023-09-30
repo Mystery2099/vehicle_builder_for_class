@@ -1,7 +1,6 @@
 ﻿using Vehicle_Builder.Enums;
 using static System.Console;
 
-//File Scoped namespace therefore doesn't need curly brackets
 namespace Vehicle_Builder.classes;
 
 internal static class InputHelper
@@ -102,7 +101,7 @@ internal static class InputHelper
             WriteLine($"\nPlease enter a valid {prompt} for your vehicle\n");
             var isValid = false;
             input = ReadLine();
-            if (input != null)
+            if (input is not null)
             {
                 isValid = validation(input);
             }
@@ -121,27 +120,21 @@ internal static class ExtensionMethods
 {
     internal static bool IsValidString(this string str)
     {
-        return str.Length > 1 && !Path.GetInvalidFileNameChars().Any(str.Contains);
+        return str is not (" " or "") && !Path.GetInvalidFileNameChars().Any(str.Contains);
     }
 
-    internal static bool IsValidUInt(this string input)
-    {
-        var tryParse = uint.TryParse(input, out _);
-        return tryParse;
-    }
+    internal static bool IsValidUInt(this string input) => uint.TryParse(input, out _);
+
     internal static bool IsValidByte(this string input)
     {
-        var tryParse = byte.TryParse(input, out var parsedInput);
-        return tryParse && parsedInput > 0;
+        return byte.TryParse(input, out var parsedInput) && parsedInput > 0;
     }
     internal static bool IsValidShort(this string input)
     {
-        var tryParse = short.TryParse(input, out var parsedInput);
-        return tryParse && parsedInput > 0;
+        return short.TryParse(input, out var parsedInput) && parsedInput > 0;
     }
     internal static bool IsValidDouble(this string input)
     {
-        var tryParse = double.TryParse(input, out var val);
-        return tryParse && val >= 0;
+        return double.TryParse(input, out var val) && val >= 0;
     }
 }
