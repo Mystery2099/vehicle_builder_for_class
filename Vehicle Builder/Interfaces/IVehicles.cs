@@ -1,6 +1,5 @@
 ﻿using Vehicle_Builder.Enums;
 
-//File Scoped namespace therefore doesn't need curly brackets
 namespace Vehicle_Builder.Interfaces;
 
 internal interface IVehicles

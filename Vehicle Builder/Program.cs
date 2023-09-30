@@ -1,7 +1,6 @@
 ﻿using Vehicle_Builder.classes;
 using static System.Console;
 
-//File Scoped namespace therefore doesn't need curly brackets
 namespace Vehicle_Builder;
 
 internal static class VehicleBuilder
@@ -12,10 +11,7 @@ internal static class VehicleBuilder
     {
         while (!_exit)
         {
-            if (_exit)
-            {
-                break;
-            }
+            if (_exit) break;
             StartProgram();
         }
     }
@@ -26,17 +22,12 @@ internal static class VehicleBuilder
         {
             Title = "Vehicle Builder";
             WriteLine("Welcome to Vehicle Builder!\n" + "Would You Like to create a new vehicle?\n" + "Type the corresponding number below: \n" + "1 -> Create New Vehicle\n" + "2 -> Exit\n");
-
             switch (ReadLine()?.ToLower())
             {
-                case "1":
-                case "create":
-                case "yes":
+                case "1" or "create" or "yes":
                     InputHelper.CreateVehiclePrompt();
                     break;
-                case "2":
-                case "no":
-                case "exit":
+                case "2" or "no" or "exit":
                     Exit();
                     break;
                 default:
@@ -45,7 +36,6 @@ internal static class VehicleBuilder
                     Clear();
                     continue;
             }
-
             break;
         }
     }
@@ -57,14 +47,13 @@ internal static class VehicleBuilder
         {
             Clear();
             WriteLine("Would you like to exit?");
+
             switch (ReadLine()?.ToLower())
             {
-                case "1":
-                case "yes":
+                case "1" or "yes":
                     _exit = true;
                     break;
-                case "2":
-                case "no":
+                case "2" or "no":
                     Clear();
                     return;
                 case "force close":
@@ -73,7 +62,6 @@ internal static class VehicleBuilder
                 default:
                     continue;
             }
-
             break;
         }
     }

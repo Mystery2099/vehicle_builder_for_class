@@ -1,12 +1,11 @@
 ﻿using Vehicle_Builder.Enums;
 
-//File Scoped namespace therefore doesn't need curly brackets
 namespace Vehicle_Builder.classes;
 
 internal class Car : Vehicle, IEquatable<Car?>
 {
     // Default number of wheels for a car
-    public const byte DefaultWheelCount = 4;
+    private const byte DefaultWheelCount = 4;
 
     // Properties specific to cars
     private byte NumberOfDoors { get; }

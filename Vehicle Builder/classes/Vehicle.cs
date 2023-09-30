@@ -3,7 +3,6 @@ using static System.Console;
 using Vehicle_Builder.Interfaces;
 using Vehicle_Builder.Enums;
 
-//File Scoped namespace therefore doesn't need curly brackets
 namespace Vehicle_Builder.classes;
 
 internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
