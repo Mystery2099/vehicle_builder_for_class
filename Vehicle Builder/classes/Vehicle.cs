@@ -86,40 +86,13 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
         }
     }
 
+    //Saves the details of the vehicle to a text file
     public void SaveDetails()
     {
         var fileName = Path.Combine(@"..\..\..\", "Saved-Vehicles", $"{Name}.txt");
         var fileContents = $"{Name} Profile\n{Details}";
         File.WriteAllText(fileName, fileContents);
     }
-    //Saves the details of the vehicle to a text file
-    /*public void SaveDetails()
-    {
-
-        var fileName = Path.Combine(@"..\..\..\", "Saved-Vehicles", $"{Name}.txt");
-
-        // Check if file already exists. If yes, delete it.     
-        if (File.Exists(fileName))
-        {
-            File.Delete(fileName);
-        }
-
-        // Create a new file and write vehicle details
-        using (var streamWriter = File.CreateText(fileName))
-        {
-
-            streamWriter.WriteLine($"{Name} Profile");
-            streamWriter.WriteLine(Details);
-        }
-
-        // Display the file contents on the console
-        using var streamReader = File.OpenText(fileName);
-        while (streamReader.ReadLine() is { } s)
-        {
-            WriteLine(s);
-        }
-        Exit();
-    }*/
 
     // Override ToString to return vehicle details
     public override string ToString() => Details;
