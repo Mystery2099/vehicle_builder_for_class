@@ -32,7 +32,7 @@ internal static class VehicleBuilder
                 case "1":
                 case "create":
                 case "yes":
-                    VehicleUtil.CreateNewVehicle();
+                    VehicleUtil.CreateVehiclePrompt();
                     break;
                 case "2":
                 case "no":

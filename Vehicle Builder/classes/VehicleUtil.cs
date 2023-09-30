@@ -6,7 +6,7 @@ namespace Vehicle_Builder.classes;
 
 internal static class VehicleUtil
 {
-    internal static void CreateNewVehicle()
+    internal static void CreateVehiclePrompt()
     {
         var message = "Would you like to create a new car, truck, or motorcycle: \n";
         var possibleTypes = Enum.GetValues(typeof(VehicleTypes));
@@ -70,7 +70,15 @@ internal static class VehicleUtil
                     var payloadDisplacement = GetDoubleInput("payload displacement");
                     var transmissionType = GetStringInput("type of transmission");
 
-                    vehicle = new Truck(data.Make, data.Model, data.Year, data.Color, data.Price, data.TopSpeed, data.Wheels, payloadDisplacement, transmissionType);
+                    vehicle = new Truck(data.Make,
+                        data.Model,
+                        data.Year,
+                        data.Color,
+                        data.Price,
+                        data.TopSpeed,
+                        data.Wheels,
+                        payloadDisplacement,
+                        transmissionType);
                     break;
                 }
 
@@ -79,7 +87,14 @@ internal static class VehicleUtil
                     var bikeType = GetStringInput("type of bike");
                     var engineDisplacement = GetUIntInput("engine displacement");
 
-                    vehicle = new Motorcycle(data.Make, data.Model, data.Year, data.Color, data.Price, data.TopSpeed, engineDisplacement, bikeType);
+                    vehicle = new Motorcycle(data.Make,
+                        data.Model,
+                        data.Year,
+                        data.Color,
+                        data.Price,
+                        data.TopSpeed,
+                        engineDisplacement,
+                        bikeType);
                     break;
                 }
             default:
@@ -89,13 +104,13 @@ internal static class VehicleUtil
     }
 
     //returns a valid string input
-    private static string GetStringInput(string prompt)
+    internal static string GetStringInput(string prompt)
     {
         return ValidateInput(prompt, s => s.IsValidString(), $"The {prompt} must me greater than 1 character long!");
     }
 
     //returns a valid uint input
-    private static uint GetUIntInput(string prompt)
+    internal static uint GetUIntInput(string prompt)
     {
         _ = uint.TryParse(ValidateInput(prompt, 
                 s => s.IsValidUInt(), 
@@ -104,7 +119,7 @@ internal static class VehicleUtil
         return result;
     }
     //returns a valid byte input
-    private static byte GetByteInput(string prompt)
+    internal static byte GetByteInput(string prompt)
     {
         _ = byte.TryParse(ValidateInput(prompt,
                 s => s.IsValidByte(),
@@ -113,7 +128,7 @@ internal static class VehicleUtil
         return result;
     }
     //returns a valid short input
-    private static short GetShortInput(string prompt)
+    internal static short GetShortInput(string prompt)
     {
         _ = short.TryParse(ValidateInput(prompt,
                 s => s.IsValidShort(),
@@ -123,7 +138,7 @@ internal static class VehicleUtil
     }
 
     //returns a valid double input
-    private static double GetDoubleInput(string prompt)
+    internal static double GetDoubleInput(string prompt)
     {
         _ = double.TryParse(ValidateInput(prompt, s => s.IsValidDouble(), $"The {prompt} must be a positive number!"),
             out var result);
