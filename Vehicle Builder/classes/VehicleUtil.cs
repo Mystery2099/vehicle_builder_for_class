@@ -116,7 +116,7 @@ internal static class VehicleUtil
     private static short GetShortInput(string prompt)
     {
         _ = short.TryParse(ValidateInput(prompt,
-                s => s.IsValidByte(),
+                s => s.IsValidShort(),
                 $"The {prompt} must be a positive whole number!"),
             out var result);
         return result;

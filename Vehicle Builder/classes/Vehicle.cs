@@ -42,12 +42,21 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
 
     public void AskToSave()
     {
+        var displayInputError = false;
         while (true)
         {
             Clear();
-            Write(Details);
-            WriteLine($"\nWould you like to save your {Name} as a text file?\n" + "1 -> Yes\n" + "2 -> No\n");
-            switch (ReadLine())
+            if (displayInputError) {
+                WriteLine("\nYour input was invalid!\n" + "Please input '1', '2', 'yes', or 'no'");
+                displayInputError = false;
+            }
+            else
+            {
+                Write(Details);
+                WriteLine($"\nWould you like to save your {Name} as a text file?\n" + "1 -> Yes\n" + "2 -> No\n");
+            }
+            var input = ReadLine();
+            switch (input)
             {
                 case "yes":
                 case "1":
@@ -69,6 +78,7 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
 
                     break;
                 default:
+                    displayInputError = true;
                     continue;
             }
 
@@ -76,12 +86,17 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
         }
     }
 
-    //Saves the details of the vehicle to a text file
     public void SaveDetails()
+    {
+        var fileName = Path.Combine(@"..\..\..\", "Saved-Vehicles", $"{Name}.txt");
+        var fileContents = $"{Name} Profile\n{Details}";
+        File.WriteAllText(fileName, fileContents);
+    }
+    //Saves the details of the vehicle to a text file
+    /*public void SaveDetails()
     {
 
         var fileName = Path.Combine(@"..\..\..\", "Saved-Vehicles", $"{Name}.txt");
-
 
         // Check if file already exists. If yes, delete it.     
         if (File.Exists(fileName))
@@ -104,7 +119,7 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
             WriteLine(s);
         }
         Exit();
-    }
+    }*/
 
     // Override ToString to return vehicle details
     public override string ToString() => Details;
