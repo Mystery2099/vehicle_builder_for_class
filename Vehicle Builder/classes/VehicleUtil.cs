@@ -46,62 +46,7 @@ internal static class VehicleUtil
         }
         vehicle.AskToSave();
     }
-
-    private static void CreateVehicle(VehicleTypes vehicleType)
-    {
-        Title = $"{vehicleType} Builder";
-
-        var data = CreateBasicProperties(vehicleType);
-        Vehicle? vehicle;
-        switch (vehicleType)
-        {
-            case VehicleTypes.Car:
-                {
-                    var doorCount = GetByteInput("number of doors");
-                    var fuelType = GetStringInput("fuel type");
-
-                    vehicle = new Car(data.Make, data.Model, data.Year, data.Color, data.Price, data.TopSpeed, doorCount, fuelType);
-                    break;
-                }
-
-            case VehicleTypes.Truck:
-                {
-                    var payloadDisplacement = GetDoubleInput("payload displacement");
-                    var transmissionType = GetStringInput("type of transmission");
-
-                    vehicle = new Truck(data.Make,
-                        data.Model,
-                        data.Year,
-                        data.Color,
-                        data.Price,
-                        data.TopSpeed,
-                        data.Wheels,
-                        payloadDisplacement,
-                        transmissionType);
-                    break;
-                }
-
-            case VehicleTypes.Motorcycle:
-                {
-                    var bikeType = GetStringInput("type of bike");
-                    var engineDisplacement = GetUIntInput("engine displacement");
-
-                    vehicle = new Motorcycle(data.Make,
-                        data.Model,
-                        data.Year,
-                        data.Color,
-                        data.Price,
-                        data.TopSpeed,
-                        engineDisplacement,
-                        bikeType);
-                    break;
-                }
-            default:
-                throw new ArgumentOutOfRangeException(nameof(vehicleType), vehicleType, null);
-        }
-        vehicle.AskToSave();
-    }
-
+    
     //returns a valid string input
     internal static string GetStringInput(string prompt)
     {
@@ -169,28 +114,6 @@ internal static class VehicleUtil
         }
         return input ?? string.Empty;
     }
-
-    // Helper method to create basic vehicle properties common to all vehicle types
-    private static BasicVehicleProperties CreateBasicProperties(VehicleTypes vehicleType)
-    {
-        var make = GetStringInput("make");
-        var model = GetStringInput("model");
-        var year = GetShortInput("year");
-        var color = GetStringInput("color");
-        var price = GetDoubleInput("price");
-        var topSpeed = GetDoubleInput("maximum speed");
-
-        var wheelCount = vehicleType switch
-        {
-            VehicleTypes.Car or VehicleTypes.Motorcycle => (vehicleType == VehicleTypes.Car) ? 
-                Car.DefaultWheelCount : Motorcycle.DefaultWheelCount,
-            _ => GetByteInput("wheel count"),
-        };
-        return new BasicVehicleProperties(make, model, year, color, price, topSpeed, wheelCount);
-    }
-
-    // Data structure to store basic vehicle properties
-    private record BasicVehicleProperties(string Make, string Model, short Year, string Color, double Price, double TopSpeed, byte Wheels);
 }
 
 // Extension methods to validate strings and numbers
