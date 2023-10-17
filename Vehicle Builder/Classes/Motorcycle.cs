@@ -1,6 +1,6 @@
 ﻿using Vehicle_Builder.Enums;
 
-namespace Vehicle_Builder.classes;
+namespace Vehicle_Builder.Classes;
 
 internal class Motorcycle : Vehicle, IEquatable<Motorcycle?>
 {

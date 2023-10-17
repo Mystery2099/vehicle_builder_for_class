@@ -1,7 +1,7 @@
 ﻿using Vehicle_Builder.Enums;
 using static System.Console;
 
-namespace Vehicle_Builder.classes;
+namespace Vehicle_Builder.Classes;
 
 internal static class InputHelper
 {
@@ -49,7 +49,7 @@ internal static class InputHelper
     //returns a valid string input
     internal static string GetStringInput(string prompt)
     {
-        return ValidateInput(prompt, s => s.IsValidString(), $"The {prompt} must me greater than 1 character long!");
+        return ValidateInput(prompt, s => s.Validate(), $"The {prompt} must me greater than 1 character long!");
     }
 
     //returns a valid uint input
@@ -57,7 +57,7 @@ internal static class InputHelper
     {
         uint result = 0;
         _ = ValidateInput(prompt, 
-                s => s.IsValidUInt(out result), 
+                s => s.ValidateAsUint(out result), 
                 $"The {prompt} must be a positive whole number!");
         return result;
     }
@@ -66,7 +66,7 @@ internal static class InputHelper
     {
         byte result = 0;
         _ = ValidateInput(prompt,
-                s => s.IsValidByte(out result),
+                s => s.ValidateAsByte(out result),
                 $"The {prompt} must be a positive whole number!");
         return result;
     }
@@ -75,7 +75,7 @@ internal static class InputHelper
     {
         short result = 0;
         _ = ValidateInput(prompt,
-                s => s.IsValidShort(out result),
+                s => s.ValidateAsShort(out result),
                 $"The {prompt} must be a positive whole number!");
         return result;
     }
@@ -84,17 +84,17 @@ internal static class InputHelper
     internal static double GetDoubleInput(string prompt)
     {
         var result = 0.0;
-        _ = ValidateInput(prompt, s => s.IsValidDouble(out result), $"The {prompt} must be a positive number!");
+        _ = ValidateInput(prompt, s => s.ValidateAsDouble(out result), $"The {prompt} must be a positive number!");
         return result;
     }
 
 
     /*
      * Takes in a custom prompt for the the message to the user
-     * validation function is used on the user input to make sure its valid using method defined rules
+     * validation method is used on the user input to make sure its valid using method defined rules
      * sends a message using errorMsg variable if the user input is invalid according to the validation function
      */
-    private static string ValidateInput(string prompt, Func<string, bool> validation,
+    private static string ValidateInput(string prompt, Func<string, bool> validate,
                                        string errorMsg = "Invalid input! Please try again.")
     {
         string? input;
@@ -106,7 +106,7 @@ internal static class InputHelper
             input = ReadLine();
             if (input is not null)
             {
-                isValid = validation(input);
+                isValid = validate(input);
             }
             if (!isValid)
             {
@@ -116,27 +116,30 @@ internal static class InputHelper
         }
         return input ?? string.Empty;
     }
-}
-
-// Extension methods to validate strings and numbers
-internal static class ExtensionMethods
-{
-    internal static bool IsValidString(this string input)
+    
+    /*
+     * Extension methods to validate strings & numbers
+     */
+    private static bool Validate(this string input)
     {
-        return input is not (" " or "") && !Path.GetInvalidFileNameChars().Any(input.Contains);
+        return input is not (" " or "") && 
+               //Makes sure that string does not contain any characters which cannot be in a file name
+               !Path.GetInvalidFileNameChars().Any(input.Contains);
     }
 
-    internal static bool IsValidUInt(this string input, out uint parsedInput) => uint.TryParse(input, out parsedInput);
+    private static bool ValidateAsUint(this string input, out uint parsedInput) => uint.TryParse(input, out parsedInput);
 
-    internal static bool IsValidByte(this string input, out byte parsedInput)
+    private static bool ValidateAsByte(this string input, out byte parsedInput)
     {
         return byte.TryParse(input, out parsedInput) && parsedInput > 0;
     }
-    internal static bool IsValidShort(this string input, out short parsedInput)
+
+    private static bool ValidateAsShort(this string input, out short parsedInput)
     {
         return short.TryParse(input, out parsedInput) && parsedInput > 0;
     }
-    internal static bool IsValidDouble(this string input, out double paredInput)
+
+    private static bool ValidateAsDouble(this string input, out double paredInput)
     {
         return double.TryParse(input, out paredInput) && paredInput >= 0;
     }

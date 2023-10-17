@@ -1,4 +1,4 @@
-﻿using Vehicle_Builder.classes;
+﻿using Vehicle_Builder.Classes;
 using static System.Console;
 
 namespace Vehicle_Builder;
@@ -21,7 +21,10 @@ internal static class VehicleBuilder
         while (true)
         {
             Title = "Vehicle Builder";
-            WriteLine("Welcome to Vehicle Builder!\n" + "Would You Like to create a new vehicle?\n" + "Type the corresponding number below: \n" + "1 -> Create New Vehicle\n" + "2 -> Exit\n");
+            WriteLine("Welcome to Vehicle Builder!\n" + 
+                      "Would You Like to create a new vehicle?\n" + 
+                      "Type the corresponding number below: \n" + 
+                      "1 -> Create New Vehicle\n" + "2 -> Exit\n");
             switch (ReadLine()?.ToLower())
             {
                 case "1" or "create" or "yes":
@@ -52,6 +55,7 @@ internal static class VehicleBuilder
             {
                 case "1" or "yes":
                     _exit = true;
+                    WriteLine("Ending Application...");
                     break;
                 case "2" or "no":
                     Clear();

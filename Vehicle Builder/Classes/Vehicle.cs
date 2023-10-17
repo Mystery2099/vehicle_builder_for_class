@@ -1,9 +1,10 @@
-﻿using static Vehicle_Builder.VehicleBuilder;
+﻿using Vehicle_Builder.Classes;
+using static Vehicle_Builder.VehicleBuilder;
 using static System.Console;
 using Vehicle_Builder.Interfaces;
 using Vehicle_Builder.Enums;
 
-namespace Vehicle_Builder.classes;
+namespace Vehicle_Builder.Classes;
 
 internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
 {
@@ -101,7 +102,7 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
         var year = InputHelper.GetShortInput("year");
         var color = InputHelper.GetStringInput("color");
         var price = InputHelper.GetDoubleInput("price");
-        var topSpeed = InputHelper.GetDoubleInput("maximum speed");
+        var topSpeed = InputHelper.GetDoubleInput("maximum speed (in mph)");
         return vehicleType switch
         {
             VehicleTypes.Car => new Car(make,
