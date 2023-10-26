@@ -12,16 +12,15 @@ internal class Car : Vehicle, IEquatable<Car?>
     private string FuelType { get; }
 
     // Constructor to initialize car properties and call base class constructor
-    internal Car(string make, string model, short year, string color, double price, double topSpeed, byte numberOfDoors, string fuelType) : base(VehicleTypes.Car, make, model, year, color, price, topSpeed, DefaultWheelCount)
+    internal Car() : base(VehicleTypes.Car, DefaultWheelCount)
     {
-        NumberOfDoors = numberOfDoors;
-        FuelType = fuelType;
+        NumberOfDoors = InputHelper.GetByteInput("number of doors");
+        FuelType = InputHelper.GetStringInput("fuel type");
     }
 
     // Override the Details property to include car-specific details
-    public override string Details =>
-        base.Details + $"Number of Doors: {NumberOfDoors}\n" +
-        $"Fuel Type: {FuelType}\n";
+    public override string Details => base.Details + $"Number of Doors: {NumberOfDoors}\n" +
+                                      $"Fuel Type: {FuelType}\n";
 
     public override bool Equals(object? obj) => Equals(obj as Car);
 

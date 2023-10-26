@@ -12,10 +12,10 @@ internal class Motorcycle : Vehicle, IEquatable<Motorcycle?>
     private string BikeType { get; }
 
     // Constructor to initialize motorcycle properties and call the base class constructor
-    internal Motorcycle(string make, string model, short year, string color, double price, double topSpeed, uint engineDisplacement, string bikeType) : base(VehicleTypes.Motorcycle, make, model, year, color, price, topSpeed, DefaultWheelCount)
+    internal Motorcycle() : base(VehicleTypes.Motorcycle, DefaultWheelCount)
     {
-        EngineDisplacement = engineDisplacement;
-        BikeType = bikeType;
+        EngineDisplacement = InputHelper.GetUIntInput("engine displacement");
+        BikeType = InputHelper.GetStringInput("type of bike");
     }
 
     // Override the Details property to include motorcycle-specific details

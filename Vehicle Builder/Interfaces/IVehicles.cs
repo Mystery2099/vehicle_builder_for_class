@@ -5,7 +5,6 @@ namespace Vehicle_Builder.Interfaces;
 internal interface IVehicles
 {
     // Common properties for all vehicles
-    public string Name { get; }
     public VehicleTypes VehicleType { get; }
     public string Make { get; }
     public string Model { get; }

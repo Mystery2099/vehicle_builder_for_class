@@ -9,26 +9,27 @@ internal class Truck : Vehicle, IEquatable<Truck?>
     private string TransmissionType { get; }
 
     // Constructor to initialize truck properties and call the base class constructor
-    internal Truck(string make, string model, short year, string color, double price, double topSpeed, byte wheels, double payloadCapacity, string transmissionType) : base(VehicleTypes.Truck, make, model, year, color, price, topSpeed, wheels)
+    internal Truck() : base(VehicleTypes.Truck, InputHelper.GetByteInput("number of wheels"))
     {
-        PayloadCapacity = payloadCapacity;
-        TransmissionType = transmissionType;
+        PayloadCapacity = InputHelper.GetDoubleInput("payload displacement");
+        TransmissionType = InputHelper.GetStringInput("type of transmission");
     }
 
     // Override the Details property to include truck-specific details
-    public override string Details =>
-        base.Details + $"{nameof(PayloadCapacity)}: {PayloadCapacity}\n" +
-        $"{nameof(TransmissionType)}: {TransmissionType}\n";
+    public override string Details => base.Details + $"{nameof(PayloadCapacity)}: {PayloadCapacity}\n" +
+                                      $"{nameof(TransmissionType)}: {TransmissionType}\n";
 
 
     // Implement equality check for trucks
     public override bool Equals(object? obj) => Equals(obj as Truck);
 
-    public bool Equals(Truck? other) =>
-        other is not null &&
-        base.Equals(other) && // Check equality of base class properties
-        Math.Abs(PayloadCapacity - other.PayloadCapacity) == 0 &&
-        TransmissionType == other.TransmissionType;
+    public bool Equals(Truck? other)
+    {
+        return other is not null &&
+               base.Equals(other) && // Check equality of base class properties
+               Math.Abs(PayloadCapacity - other.PayloadCapacity) == 0 &&
+               TransmissionType == other.TransmissionType;
+    }
 
     // Implement a custom hash code calculation
     public override int GetHashCode() => HashCode.Combine(base.GetHashCode(), PayloadCapacity, TransmissionType);
