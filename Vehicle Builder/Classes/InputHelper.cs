@@ -47,10 +47,7 @@ internal static class InputHelper
     }
     
     //returns a valid string input
-    internal static string GetStringInput(string prompt)
-    {
-        return ValidateInput(prompt, s => s.Validate(), $"The {prompt} must me greater than 1 character long!");
-    }
+    internal static string GetStringInput(string prompt) => ValidateInput(prompt, s => s.Validate());
 
     //returns a valid uint input
     internal static uint GetUIntInput(string prompt)
@@ -94,25 +91,18 @@ internal static class InputHelper
      * validation method is used on the user input to make sure its valid using method defined rules
      * sends a message using errorMsg variable if the user input is invalid according to the validation function
      */
-    private static string ValidateInput(string prompt, Func<string, bool> validate,
+    private static string ValidateInput(string prompt, Func<string?, bool> validate,
                                        string errorMsg = "Invalid input! Please try again.")
     {
         string? input;
-        while (true)
+        for (var i = 0;; i++)
         {
             Clear();
+            if (i > 0) WriteLine(errorMsg);
             WriteLine($"\nPlease enter a valid {prompt} for your vehicle\n");
-            var isValid = false;
             input = ReadLine();
-            if (input is not null)
-            {
-                isValid = validate(input);
-            }
-            if (!isValid)
-            {
-                WriteLine(errorMsg);
-            }
-            else { break; }
+            if (!validate(input)) continue;
+            break;
         }
         return input ?? string.Empty;
     }
@@ -120,27 +110,18 @@ internal static class InputHelper
     /*
      * Extension methods to validate strings & numbers
      */
-    private static bool Validate(this string input)
+    private static bool Validate(this string? input)
     {
-        return input is not (" " or "") && 
+        return input is not (null or " " or "") && 
                //Makes sure that string does not contain any characters which cannot be in a file name
                !Path.GetInvalidFileNameChars().Any(input.Contains);
     }
 
-    private static bool ValidateAsUint(this string input, out uint parsedInput) => uint.TryParse(input, out parsedInput);
+    private static bool ValidateAsUint(this string? input, out uint parsedInput) => uint.TryParse(input, out parsedInput);
 
-    private static bool ValidateAsByte(this string input, out byte parsedInput)
-    {
-        return byte.TryParse(input, out parsedInput) && parsedInput > 0;
-    }
+    private static bool ValidateAsByte(this string? input, out byte parsedInput) => byte.TryParse(input, out parsedInput) && parsedInput > 0;
 
-    private static bool ValidateAsShort(this string input, out short parsedInput)
-    {
-        return short.TryParse(input, out parsedInput) && parsedInput > 0;
-    }
+    private static bool ValidateAsShort(this string? input, out short parsedInput) => short.TryParse(input, out parsedInput) && parsedInput > 0;
 
-    private static bool ValidateAsDouble(this string input, out double paredInput)
-    {
-        return double.TryParse(input, out paredInput) && paredInput >= 0;
-    }
+    private static bool ValidateAsDouble(this string? input, out double paredInput) => double.TryParse(input, out paredInput) && paredInput >= 0;
 }
