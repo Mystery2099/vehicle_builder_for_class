@@ -18,12 +18,13 @@ internal static class VehicleBuilder
 
     private static void StartProgram()
     {
-        while (true)
+        do
         {
+            Clear();
             Title = "Vehicle Builder";
-            WriteLine("Welcome to Vehicle Builder!\n" + 
-                      "Would You Like to create a new vehicle?\n" + 
-                      "Type the corresponding number below: \n" + 
+            WriteLine("Welcome to Vehicle Builder!\n" +
+                      "Would You Like to create a new vehicle?\n" +
+                      "Type the corresponding number below: \n" +
                       "1 -> Create New Vehicle\n" + "2 -> Exit\n");
             switch (ReadLine()?.ToLower())
             {
@@ -39,8 +40,9 @@ internal static class VehicleBuilder
                     Clear();
                     continue;
             }
+
             break;
-        }
+        } while (true);
     }
 
 

@@ -44,21 +44,26 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
 
     }
 
+    private void DisplayInputError(ref bool shouldDisplayInputError)
+    {
+        if (shouldDisplayInputError) {
+            WriteLine("\nYour input was invalid!\n" + "Please input '1', '2', 'yes', or 'no'");
+            shouldDisplayInputError = false;
+        }
+        else
+        {
+            Write(Details);
+            WriteLine($"\nWould you like to save your {_name} as a text file?\n" + "1 -> Yes\n" + "2 -> No\n");
+        }
+    }
+    
     public void AskToSave()
     {
         var displayInputError = false;
         while (true)
         {
             Clear();
-            if (displayInputError) {
-                WriteLine("\nYour input was invalid!\n" + "Please input '1', '2', 'yes', or 'no'");
-                displayInputError = false;
-            }
-            else
-            {
-                Write(Details);
-                WriteLine($"\nWould you like to save your {_name} as a text file?\n" + "1 -> Yes\n" + "2 -> No\n");
-            }
+            DisplayInputError(ref displayInputError);
             
             switch (ReadLine())
             {
@@ -144,4 +149,5 @@ internal abstract class Vehicle : IEquatable<Vehicle?>, IVehicles
     public static bool operator ==(Vehicle? left, Vehicle? right) => EqualityComparer<Vehicle>.Default.Equals(left, right);
 
     public static bool operator !=(Vehicle? left, Vehicle? right) => !(left == right);
+    
 }

@@ -94,17 +94,21 @@ internal static class InputHelper
     private static string ValidateInput(string prompt, Func<string?, bool> validate,
                                        string errorMsg = "Invalid input! Please try again.")
     {
-        string? input;
-        for (var i = 0;; i++)
+        string input;
+        var showErrorMsg = false;
+        do
         {
             Clear();
-            if (i > 0) WriteLine(errorMsg);
+            if (showErrorMsg) WriteLine(errorMsg);
+            showErrorMsg = true;
+            
             WriteLine($"\nPlease enter a valid {prompt} for your vehicle\n");
-            input = ReadLine();
+            
+            input = ReadLine() ?? string.Empty;
             if (!validate(input)) continue;
             break;
-        }
-        return input ?? string.Empty;
+        } while (true);
+        return input;
     }
     
     /*
